@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_int/View/Recursos/barraSuperior.dart';
+import 'package:flutter_app_int/View/Recursos/estilo.dart';
+import 'package:flutter_app_int/View/Recursos/menuHamburger.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BarraSuperior(),
-      //drawer: ,
+      drawer: MenuHamburger(),
       body: Text(" "),
     );
   }

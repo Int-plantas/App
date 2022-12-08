@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_int/View/Recursos/estilo.dart';
+
 import 'package:flutter_app_int/View/home.dart';
 
-void main() => runApp(MaterialApp(
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
       title: "Int plantas",
       home: Home(),
       debugShowCheckedModeBanner: false,
       theme: estilo(),
-    ));
+    );
+  }
+}

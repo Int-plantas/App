@@ -29,6 +29,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  provider: ^3.0.0
+  flutter_statusbarcolor_ns: ^0.5.0
   flutter:
     sdk: flutter
 
