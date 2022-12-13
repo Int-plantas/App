@@ -1,5 +1,3 @@
-import 'dart:js_util';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,6 +7,8 @@ class MenuHamburger extends StatelessWidget {
   final String nome = "Tony";
   final String sobrenome = "Stark";
   final String foto = "img/stark.jpeg";
+
+  const MenuHamburger({super.key});
 
   Text fontePadrao(String texto, double tamanho, Color cor,
       double espacamentoLetras, double espacamentoPalavras) {
@@ -24,7 +24,7 @@ class MenuHamburger extends StatelessWidget {
   }
 
   Divider divisorPadrao() {
-    return Divider(height: 0, thickness: 1, indent: 5, endIndent: 5);
+    return const Divider(height: 0, thickness: 1, indent: 5, endIndent: 5);
   }
 
   @override
@@ -35,8 +35,8 @@ class MenuHamburger extends StatelessWidget {
           Container(
             alignment: Alignment.bottomLeft,
             height: 140,
-            padding: EdgeInsets.all(10),
-            color: Color.fromRGBO(0, 194, 203, 1),
+            padding: const EdgeInsets.all(10),
+            color: const Color.fromRGBO(0, 194, 203, 1),
             child: Row(
               children: [
                 Column(
@@ -46,17 +46,17 @@ class MenuHamburger extends StatelessWidget {
                       height: 80,
                       width: 150,
                       child: fontePadrao(
-                          "Olá, Sr. ${sobrenome}", 18, Colors.white, 1, 3),
+                          "Olá, Sr. $sobrenome", 18, Colors.white, 1, 3),
                     ),
                     Container(
                       alignment: Alignment.bottomLeft,
                       height: 40,
                       width: 150,
-                      child: fontePadrao("ID: ${id}", 12, Colors.white, 1, 3),
+                      child: fontePadrao("ID: $id", 12, Colors.white, 1, 3),
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Column(
@@ -77,7 +77,7 @@ class MenuHamburger extends StatelessWidget {
           ListTile(
             title:
                 fontePadrao("Umidade do solo", 15, Colors.grey.shade800, 0, 3),
-            leading: Icon(
+            leading: const Icon(
               Icons.water_drop_sharp,
               color: Color.fromRGBO(9, 117, 155, 1),
               size: 22,
@@ -92,7 +92,7 @@ class MenuHamburger extends StatelessWidget {
           divisorPadrao(),
           ListTile(
             title: fontePadrao("Umidade do ar", 15, Colors.grey.shade800, 0, 3),
-            leading: Icon(
+            leading: const Icon(
               Icons.water_drop_sharp,
               color: Color.fromRGBO(9, 117, 155, 1),
               size: 22,
@@ -108,7 +108,7 @@ class MenuHamburger extends StatelessWidget {
           ListTile(
             title: fontePadrao(
                 "Temperatura do solo", 15, Colors.grey.shade800, 0, 3),
-            leading: Icon(
+            leading: const Icon(
               Icons.thermostat_sharp,
               color: Color.fromRGBO(77, 171, 199, 1),
               size: 22,
@@ -124,7 +124,7 @@ class MenuHamburger extends StatelessWidget {
           ListTile(
             title: fontePadrao(
                 "Temperatura ambiente", 15, Colors.grey.shade800, 0, 3),
-            leading: Icon(
+            leading: const Icon(
               Icons.thermostat_sharp,
               color: Color.fromRGBO(77, 171, 199, 1),
               size: 22,
@@ -171,71 +171,3 @@ class MenuHamburger extends StatelessWidget {
     );
   }
 }
-
-/*
-          Container(
-            padding: EdgeInsets.fromLTRB(10, 20, 10, 5),
-            height: 150,
-            color: Colors.green.shade900,
-            child: Column(
-                children: [
-                  Column(children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Olá, Sr. ${sobrenome}!",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w100,
-                              letterSpacing: 1,
-                              wordSpacing: 3,
-                              color: Colors.white),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 65),
-                    Row(
-                      children: [
-                        Text(
-                          "ID: ${id}",
-                          style: TextStyle(
-                              color: Colors.grey.shade500, fontSize: 14),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 2),
-                    Row(
-                      children: [
-                        Text(
-                          email,
-                          style: TextStyle(
-                              color: Colors.grey.shade500, fontSize: 14),
-                        ),
-                      ],
-                    ),
-                  ]),
-                  Column(
-                    children: [
-                      Text("dd"),
-                    ],
-                  ),
-                ]),
-          ),
-          //Dados usuario
-          UserAccountsDrawerHeader(
-            accountName: Text("Olá Sr. ${sobrenome}"),
-            accountEmail: Text(email),
-            decoration: BoxDecoration(color: Colors.green.shade900),
-            currentAccountPicture: CircleAvatar(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.asset(foto),
-              ),
-            ),
-          ),*/
-//Umidade do solo
-
-//Umidade do ar
-//Temperatura do solo
-//Temperatura ambiente
-//Luminosidade

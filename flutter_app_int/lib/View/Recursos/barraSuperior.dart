@@ -1,11 +1,7 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app_int/View/Recursos/estilo.dart';
-import 'package:flutter_app_int/View/home.dart';
 
 class BarraSuperior extends AppBar {
-  BarraSuperior()
+  BarraSuperior({super.key})
       : super(actions: [
           ClipRRect(
             borderRadius: BorderRadius.circular(500),
