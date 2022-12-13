@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_int/View/Recursos/barraSuperior.dart';
 import 'package:flutter_app_int/View/Recursos/menuHamburger.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -8,6 +9,20 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  Text fontePadrao(String texto, double tamanho, Color cor,
+      double espacamentoLetras, double espacamentoPalavras) {
+    return Text(
+      texto,
+      style: GoogleFonts.nunito(
+          textStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: tamanho,
+              color: cor,
+              letterSpacing: espacamentoLetras,
+              wordSpacing: espacamentoPalavras)),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -37,44 +52,105 @@ class HomeState extends State<Home> {
         height: ScaffoldBodyHeight / 3,
         width: 1,
         child: VerticalDivider(
-          width: 1,
-          thickness: 1,
+          width: 0,
+          thickness: 0,
           indent: 5,
           endIndent: 5,
         ),
       );
     }
 
+    EdgeInsets squareButton() {
+      return EdgeInsets.fromLTRB(width / 9, ScaffoldBodyHeight / 6.9, width / 9,
+          ScaffoldBodyHeight / 17);
+    }
+
     return Scaffold(
       appBar: appBar,
       drawer: MenuHamburger(),
       body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               TextButton(
-                //padding: EdgeInsets.fromLTRB(1, 1, 1, 10),
-                onPressed: () {},
-                child: Text("Solo\nkk"),
-                //iconSize: 30,
-                style: TextButton.styleFrom(
-                    textStyle: TextStyle(fontSize: 20),
-                    foregroundColor: Colors.black,
-                    padding: EdgeInsets.fromLTRB(60, 10, 60, 10)),
-              ),
+                  onPressed: () {},
+                  child: Column(children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.water_drop_outlined,
+                          size: 26,
+                          color: Color.fromRGBO(9, 117, 155, 1),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        fontePadrao("53%", 28, Colors.black, 1, 1)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 36,
+                    ),
+                    fontePadrao("Solo", 22, Colors.black, 1, 1)
+                  ]),
+                  style: TextButton.styleFrom(
+                      textStyle: TextStyle(fontSize: 20),
+                      foregroundColor: Colors.black,
+                      padding: squareButton())),
               horizontalDivider(),
-              IconButton(
-                onPressed: () {},
-                icon: Text("Ar"),
-                iconSize: 30,
-              ),
+              TextButton(
+                  onPressed: () {},
+                  child: Column(children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.thermostat,
+                          size: 26,
+                          color: Colors.black,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        fontePadrao("53°C", 28, Colors.black, 1, 1)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 36,
+                    ),
+                    fontePadrao("Solo", 22, Colors.black, 1, 1)
+                  ]),
+                  style: TextButton.styleFrom(
+                      textStyle: TextStyle(fontSize: 20),
+                      foregroundColor: Colors.black,
+                      padding: squareButton())),
               horizontalDivider(),
-              IconButton(
-                onPressed: () {},
-                icon: Text("Solo"),
-                iconSize: 30,
-              ),
+              TextButton(
+                  onPressed: () {},
+                  child: Column(children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.light_mode_outlined,
+                          size: 26,
+                          color: Colors.amber.shade900,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        fontePadrao("03:00h", 28, Colors.black, 1, 1)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 36,
+                    ),
+                    fontePadrao("Horas luz", 22, Colors.black, 1, 1)
+                  ]),
+                  style: TextButton.styleFrom(
+                      textStyle: TextStyle(fontSize: 20),
+                      foregroundColor: Colors.black,
+                      padding: squareButton())),
             ],
           ),
           Column(
@@ -82,25 +158,71 @@ class HomeState extends State<Home> {
             children: [verticalDivider(), verticalDivider(), verticalDivider()],
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              IconButton(
+              TextButton(
+                  onPressed: () {},
+                  child: Column(children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.water_drop_outlined,
+                          size: 26,
+                          color: Color.fromRGBO(9, 117, 155, 1),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        fontePadrao("40%", 28, Colors.black, 1, 1)
+                      ],
+                    ),
+                    SizedBox(
+                      height: 36,
+                    ),
+                    fontePadrao("Ar", 22, Colors.black, 1, 1)
+                  ]),
+                  style: TextButton.styleFrom(
+                      textStyle: TextStyle(fontSize: 20),
+                      foregroundColor: Colors.black,
+                      padding: squareButton())),
+              horizontalDivider(),
+              TextButton(
                 onPressed: () {},
-                icon: Text("Ar"),
-                iconSize: 30,
+                child: Column(children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.thermostat,
+                        size: 26,
+                        color: Colors.black,
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      fontePadrao("40°C", 28, Colors.black, 1, 1)
+                    ],
+                  ),
+                  SizedBox(
+                    height: 36,
+                  ),
+                  fontePadrao("Ar", 22, Colors.black, 1, 1)
+                ]),
+                style: TextButton.styleFrom(
+                    textStyle: TextStyle(fontSize: 20),
+                    foregroundColor: Colors.black,
+                    padding: squareButton()),
               ),
               horizontalDivider(),
-              IconButton(
-                onPressed: () {},
-                icon: Text("Ar"),
-                iconSize: 30,
-              ),
-              horizontalDivider(),
-              IconButton(
-                onPressed: () {},
-                icon: Text("Ar"),
-                iconSize: 30,
-              ),
+              TextButton(
+                  onPressed: () {},
+                  child: Text(" \n "),
+                  style: TextButton.styleFrom(
+                      textStyle: TextStyle(fontSize: 20),
+                      foregroundColor: Colors.black,
+                      padding: EdgeInsets.fromLTRB(
+                          (width / 5),
+                          (ScaffoldBodyHeight / 7.85),
+                          (width / 5),
+                          (ScaffoldBodyHeight / 7.85)))),
             ],
           ),
         ],
