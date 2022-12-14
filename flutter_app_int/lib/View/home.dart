@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_int/View/Recursos/barraSuperior.dart';
 import 'package:flutter_app_int/View/Recursos/menuHamburger.dart';
+import 'package:flutter_app_int/View/setumidadesolo.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Home extends StatefulWidget {
@@ -24,6 +25,10 @@ class HomeState extends State<Home> {
               wordSpacing: espacamentoPalavras)),
     );
   }
+
+  bool stateButton1 = true;
+  bool stateButton2 = false;
+  bool stateButton3 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +76,11 @@ class HomeState extends State<Home> {
     }
 
     SizedBox spaceButton() {
-      return SizedBox(height: 28.8);
+      return const SizedBox(height: 18.8);
+    }
+
+    Size sizeButton() {
+      return Size(width / 3, scaffoldBodyHeight / 14);
     }
 
     return Scaffold(
@@ -83,31 +92,39 @@ class HomeState extends State<Home> {
             children: [
               Column(
                 children: [
-                  TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 20),
-                          foregroundColor: Colors.black,
-                          padding: squareButton()),
-                      child: Column(children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.water_drop_outlined,
-                              size: 26,
-                              color: Color.fromRGBO(9, 117, 155, 1),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            fontePadrao("53%", 28, Colors.black, 1, 1)
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 36,
-                        ),
-                        fontePadrao("Solo", 22, Colors.black, 1, 1)
-                      ])),
+                  Builder(builder: (BuildContext context) {
+                    return TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const SetUmidadeSolo()));
+                        },
+                        style: TextButton.styleFrom(
+                            textStyle: const TextStyle(fontSize: 20),
+                            foregroundColor: Colors.black,
+                            padding: squareButton()),
+                        child: Column(children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.water_drop_outlined,
+                                size: 26,
+                                color: Color.fromRGBO(9, 117, 155, 1),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              fontePadrao("53%", 28, Colors.black, 1, 1)
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 36,
+                          ),
+                          fontePadrao("Solo", 22, Colors.black, 1, 1)
+                        ]));
+                  }),
                   horizontalDivider(),
                   TextButton(
                       onPressed: () {},
@@ -226,44 +243,44 @@ class HomeState extends State<Home> {
                   ),
                   horizontalDivider(),
                   spaceButton(),
-                  TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                          textStyle: const TextStyle(fontSize: 20),
-                          foregroundColor: Colors.black,
-                          side: const BorderSide(color: Colors.grey, width: 3),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          padding: EdgeInsets.symmetric(
-                              vertical: scaffoldBodyHeight / 60,
-                              horizontal: width / 15)),
+                  ElevatedButton(
+                      onPressed: pressButon1,
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.black,
+                        backgroundColor:
+                            stateButton1 ? Colors.grey.shade300 : Colors.white,
+                        side: const BorderSide(color: Colors.grey, width: 1),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        fixedSize: sizeButton(),
+                      ),
                       child: fontePadrao("Auto", 20,
                           const Color.fromRGBO(9, 117, 155, 1), 1, 1)),
                   spaceButton(),
-                  TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                          //textStyle: const TextStyle(fontSize: 20),
+                  ElevatedButton(
+                      onPressed: pressButton2,
+                      style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,
-                          side: const BorderSide(color: Colors.grey, width: 3),
+                          backgroundColor: stateButton2
+                              ? Colors.grey.shade300
+                              : Colors.white,
+                          side: const BorderSide(color: Colors.grey, width: 1),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
-                          padding: EdgeInsets.symmetric(
-                              vertical: scaffoldBodyHeight / 60,
-                              horizontal: width / 15)),
+                          fixedSize: sizeButton()),
                       child: fontePadrao("ON", 20, Colors.black, 0, 0)),
                   spaceButton(),
-                  TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                          //textStyle: const TextStyle(fontSize: 20),
+                  ElevatedButton(
+                      onPressed: pressButton3,
+                      style: ElevatedButton.styleFrom(
                           foregroundColor: Colors.black,
-                          side: const BorderSide(color: Colors.grey, width: 3),
+                          backgroundColor: stateButton3
+                              ? Colors.grey.shade300
+                              : Colors.white,
+                          side: const BorderSide(color: Colors.grey, width: 1),
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50)),
-                          padding: EdgeInsets.symmetric(
-                              vertical: scaffoldBodyHeight / 60,
-                              horizontal: width / 15)),
+                          fixedSize: sizeButton()),
                       child: fontePadrao("OFF", 20, Colors.black, 0, 0)),
                   spaceButton(),
                 ],
@@ -278,11 +295,30 @@ class HomeState extends State<Home> {
               ],
             )
           ])
-        ])
-        /*bottomNavigationBar: BottomNavigationBar(items: const [
-        BottomNavigationBarItem(icon: Icon(Icons.wallet), label: "dede"),
-        BottomNavigationBarItem(icon: Icon(Icons.abc), label: "ww")
-      ]),*/
-        );
+        ]));
+  }
+
+  pressButon1() {
+    setState(() {
+      stateButton1 = true;
+      stateButton2 = false;
+      stateButton3 = false;
+    });
+  }
+
+  pressButton2() {
+    setState(() {
+      stateButton1 = false;
+      stateButton2 = true;
+      stateButton3 = false;
+    });
+  }
+
+  pressButton3() {
+    setState(() {
+      stateButton1 = false;
+      stateButton2 = false;
+      stateButton3 = true;
+    });
   }
 }
