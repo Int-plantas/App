@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_int/View/Recursos/barraSuperior.dart';
-import 'package:flutter_app_int/View/Recursos/menuHamburger.dart';
 import 'package:flutter_app_int/View/setumidadesolo.dart';
+import 'package:flutter_app_int/database/firestore/service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'Recursos/menuHamburger.dart';
+
 class Home extends StatefulWidget {
-  const Home({super.key});
+  Home({super.key});
 
   @override
   State<StatefulWidget> createState() => HomeState();
@@ -29,6 +31,9 @@ class HomeState extends State<Home> {
   bool stateButton1 = true;
   bool stateButton2 = false;
   bool stateButton3 = false;
+
+  //final refresh = serviceDados();
+  final Future<String> a = getUmidade();
 
   @override
   Widget build(BuildContext context) {
@@ -106,19 +111,127 @@ class HomeState extends State<Home> {
                             foregroundColor: Colors.black,
                             padding: squareButton()),
                         child: Column(children: [
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.water_drop_outlined,
-                                size: 26,
-                                color: Color.fromRGBO(9, 117, 155, 1),
-                              ),
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              fontePadrao("53%", 28, Colors.black, 1, 1)
-                            ],
+                          Container(
+                            child: FutureBuilder(
+                                future: getUmidade(),
+                                builder: (context, snapshot) {
+                                  return Text(snapshot.data.toString());
+                                }),
                           ),
+                          /*Row(children: [
+                            const Icon(
+                              Icons.water_drop_outlined,
+                              size: 26,
+                              color: Color.fromRGBO(9, 117, 155, 1),
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            FutureBuilder<String>(
+                                future: a,
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<String> snapshot) {
+                                  List<Widget> children;
+                                  if (snapshot.hasData) {
+                                    children = <Widget>[
+                                      const Icon(
+                                        Icons.check_circle_outline,
+                                        color: Colors.green,
+                                        size: 60,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 16),
+                                        child: Text('Result: ${snapshot.data}'),
+                                      ),
+                                    ];
+                                  } else if (snapshot.hasError) {
+                                    children = <Widget>[
+                                      const Icon(
+                                        Icons.error_outline,
+                                        color: Colors.red,
+                                        size: 60,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 16),
+                                        child: Text('Error: ${snapshot.error}'),
+                                      ),
+                                    ];
+                                  } else {
+                                    children = const <Widget>[
+                                      SizedBox(
+                                        width: 60,
+                                        height: 60,
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(top: 16),
+                                        child: Text('Awaiting result...'),
+                                      ),
+                                    ];
+                                  }
+                                  return Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: children,
+                                    ),
+                                  );
+                                })
+                          ]),*/
+
+                          /* Container(
+                            child: FutureBuilder<String>(
+                              future:
+                                  a, // a previously-obtained Future<String> or null
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<String> snapshot) {
+                                List<Widget> children;
+                                if (snapshot.hasData) {
+                                  children = <Widget>[
+                                    const Icon(
+                                      Icons.check_circle_outline,
+                                      color: Colors.green,
+                                      size: 60,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: Text('Result: ${snapshot.data}'),
+                                    ),
+                                  ];
+                                } else if (snapshot.hasError) {
+                                  children = <Widget>[
+                                    const Icon(
+                                      Icons.error_outline,
+                                      color: Colors.red,
+                                      size: 60,
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 16),
+                                      child: Text('Error: ${snapshot.error}'),
+                                    ),
+                                  ];
+                                } else {
+                                  children = const <Widget>[
+                                    SizedBox(
+                                      width: 60,
+                                      height: 60,
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 16),
+                                      child: Text('Awaiting result...'),
+                                    ),
+                                  ];
+                                }
+                                return Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: children,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),*/
                           const SizedBox(
                             height: 36,
                           ),

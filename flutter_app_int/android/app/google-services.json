@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "955881771793",
+    "firebase_url": "https://banco-int-default-rtdb.firebaseio.com",
+    "project_id": "banco-int",
+    "storage_bucket": "banco-int.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955881771793:android:ca7a222505673f2d4232b0",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app_int"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955881771793-od5iillnep9unjulunhtb15ka6ftvthq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7Z_8L_slBlqEhCkpuJHz4ABkUkLt28sA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955881771793-od5iillnep9unjulunhtb15ka6ftvthq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
