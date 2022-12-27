@@ -99,6 +99,10 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
         sizeFont: sizeVar,
         colorVar: Colors.blueGrey);
 
+    Future<Widget> config() async {
+      return const Text("");
+    }
+
     Icon bolinhas() {
       return Icon(
         Icons.circle,
@@ -269,8 +273,13 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
                 height: sizeContainer,
                 width: sizeContainer,
                 padding: EdgeInsets.zero,
-                color: Colors.white10,
-                child: config3,
+                child: FutureBuilder<Widget>(
+                  future: config(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<Widget> snapshot) {
+                    return config3;
+                  },
+                ),
               ),
               SizedBox(
                 width: width / 5,
@@ -314,7 +323,6 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
                 height: sizeContainer,
                 width: sizeContainer,
                 padding: EdgeInsets.zero,
-                color: Colors.white,
                 child: config4,
               ),
               SizedBox(
