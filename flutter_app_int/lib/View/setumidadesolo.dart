@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_int/View/Recursos/barrasuperiorset.dart';
+import 'package:flutter_app_int/database/firestore/service.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path/path.dart';
 
 class SetUmidadeSolo extends StatefulWidget {
   const SetUmidadeSolo({super.key});
@@ -78,6 +80,24 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
     double sizeIcon = width / 10;
     double sizeVar = width / 7;
     double sizeSplash = width / 10;
+    double sizeContainer = width / 5;
+
+    final config1 = ConectionService(
+        idDataBase: 'configUmidMin',
+        sizeFont: sizeVar,
+        colorVar: Colors.blueGrey);
+    final config2 = ConectionService(
+        idDataBase: 'configUmidMax',
+        sizeFont: sizeVar,
+        colorVar: Colors.blueGrey);
+    final config3 = ConectionService(
+        idDataBase: 'configTempoON',
+        sizeFont: sizeVar,
+        colorVar: Colors.blueGrey);
+    final config4 = ConectionService(
+        idDataBase: 'configTempoOFF',
+        sizeFont: sizeVar,
+        colorVar: Colors.blueGrey);
 
     Icon bolinhas() {
       return Icon(
@@ -155,11 +175,17 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
                 ),
               ),
               SizedBox(
-                width: width / 20,
+                width: width / 30,
               ),
-              fontePadrao("$varMin", sizeVar, Colors.blueGrey, 0, 0),
+              Container(
+                alignment: Alignment.centerRight,
+                height: sizeContainer,
+                width: sizeContainer,
+                padding: EdgeInsets.zero,
+                child: config1,
+              ),
               SizedBox(
-                width: width / 20,
+                width: width / 40,
               ),
               Column(
                 children: [
@@ -187,11 +213,17 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
                 ],
               ),
               SizedBox(
-                width: width / 20,
+                width: width / 30,
               ),
-              fontePadrao("$varMax", sizeVar, Colors.blueGrey, 0, 0),
+              Container(
+                alignment: Alignment.centerLeft,
+                height: sizeContainer,
+                width: sizeContainer,
+                padding: EdgeInsets.zero,
+                child: config2,
+              ),
               SizedBox(
-                width: width / 20,
+                width: width / 30,
               ),
               IconButton(
                 onPressed: pressIconMax,
@@ -205,7 +237,12 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
               ),
             ],
           ),
-          fontePadrao("valor em %", width / 30, Colors.blueGrey, 0, 0)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              fontePadrao("valor em %", width / 30, Colors.blueGrey, 0, 0)
+            ],
+          )
         ],
       ),
       Column(
@@ -227,7 +264,14 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
               SizedBox(
                 width: width / 5,
               ),
-              fontePadrao("$varAcionamento", sizeVar, Colors.blueGrey, 0, 0),
+              Container(
+                alignment: Alignment.center,
+                height: sizeContainer,
+                width: sizeContainer,
+                padding: EdgeInsets.zero,
+                color: Colors.white10,
+                child: config3,
+              ),
               SizedBox(
                 width: width / 5,
               ),
@@ -265,7 +309,14 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
               SizedBox(
                 width: width / 5,
               ),
-              fontePadrao("$varDesligamento", sizeVar, Colors.blueGrey, 0, 0),
+              Container(
+                alignment: Alignment.centerRight,
+                height: sizeContainer,
+                width: sizeContainer,
+                padding: EdgeInsets.zero,
+                color: Colors.white,
+                child: config4,
+              ),
               SizedBox(
                 width: width / 5,
               ),

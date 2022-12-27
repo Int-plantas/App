@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-late String nome;
 //String sUmidadeSolo;
 
 /*void serviceDados() async {
@@ -28,12 +29,84 @@ late String nome;
   return ;
 }*/
 
-Future<String> getUmidade() async {
-  DocumentSnapshot document =
-      await FirebaseFirestore.instance.collection('User').doc('11111').get();
+/*Future<String> getUmidade() async {
+  /*DocumentSnapshot document =
+      await FirebaseFirestore.instance.collection('User').doc('11111').get();*/
+
+      final collection = FirebaseFirestore.instance.collection('User');
+
+      DocumentSnapshot document =  
 
   return document['nome'];
+}*/
+
+class ConectionService extends StatefulWidget {
+  String idDataBase;
+  double sizeFont;
+  Color colorVar;
+  ConectionService(
+      {required this.idDataBase,
+      required this.sizeFont,
+      required this.colorVar}) {}
+  @override
+  _ConectionServiceState createState() => _ConectionServiceState(
+      idDataBase: idDataBase, sizeFont: sizeFont, colorVar: colorVar);
 }
+
+class _ConectionServiceState extends State<ConectionService> {
+  String idDataBase;
+  double sizeFont;
+  Color colorVar;
+  _ConectionServiceState(
+      {required this.idDataBase,
+      required this.sizeFont,
+      required this.colorVar});
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('1').snapshots();
+
+  Text fontePadrao(String texto, double tamanho, Color cor,
+      double espacamentoLetras, double espacamentoPalavras) {
+    return Text(
+      texto,
+      style: GoogleFonts.nunito(
+          textStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: tamanho,
+              color: cor,
+              letterSpacing: espacamentoLetras,
+              wordSpacing: espacamentoPalavras)),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+        stream: _usersStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return Text('X');
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Text("...");
+          }
+
+          return ListView(
+              children: snapshot.data!.docs.map(
+            (DocumentSnapshot document) {
+              Map<String, dynamic> data =
+                  document.data()! as Map<String, dynamic>;
+              return fontePadrao(data[idDataBase], sizeFont, colorVar, 1, 1);
+            },
+          ).toList());
+        });
+  }
+}
+
+/*abstract class ListItem {
+  /// The title line to show in a list item.
+  Widget buildTitle(BuildContext context);
+}*/
 
 
 /*class Dados {

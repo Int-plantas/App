@@ -14,6 +14,20 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
+  final s1 = ConectionService(
+    idDataBase: 'sUmidadeSolo',
+    sizeFont: 28,
+    colorVar: Colors.black,
+  );
+  final s2 = ConectionService(
+      idDataBase: 'sTemperaturaSolo', sizeFont: 28, colorVar: Colors.black);
+  final s3 = ConectionService(
+      idDataBase: 'sLuminosidade', sizeFont: 28, colorVar: Colors.black);
+  final s4 = ConectionService(
+      idDataBase: 'sUmidadeAr', sizeFont: 28, colorVar: Colors.black);
+  final s5 = ConectionService(
+      idDataBase: 'sTemperaturaAr', sizeFont: 28, colorVar: Colors.black);
+
   Text fontePadrao(String texto, double tamanho, Color cor,
       double espacamentoLetras, double espacamentoPalavras) {
     return Text(
@@ -31,9 +45,6 @@ class HomeState extends State<Home> {
   bool stateButton1 = true;
   bool stateButton2 = false;
   bool stateButton3 = false;
-
-  //final refresh = serviceDados();
-  final Future<String> a = getUmidade();
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +101,7 @@ class HomeState extends State<Home> {
 
     return Scaffold(
         appBar: appBar,
-        drawer: const MenuHamburger(),
+        drawer: MenuHamburger(),
         body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -103,135 +114,33 @@ class HomeState extends State<Home> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const SetUmidadeSolo()));
+                                  builder: (context) => SetUmidadeSolo()));
                         },
                         style: TextButton.styleFrom(
                             textStyle: const TextStyle(fontSize: 20),
                             foregroundColor: Colors.black,
                             padding: squareButton()),
                         child: Column(children: [
-                          Container(
-                            child: FutureBuilder(
-                                future: getUmidade(),
-                                builder: (context, snapshot) {
-                                  return Text(snapshot.data.toString());
-                                }),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.water_drop_outlined,
+                                size: 26,
+                                color: Color.fromRGBO(9, 117, 155, 1),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.zero,
+                                height: 38,
+                                width: 38,
+                                child: s1,
+                              ),
+                              fontePadrao("%", 28, Colors.black, 1, 1)
+                            ],
                           ),
-                          /*Row(children: [
-                            const Icon(
-                              Icons.water_drop_outlined,
-                              size: 26,
-                              color: Color.fromRGBO(9, 117, 155, 1),
-                            ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            FutureBuilder<String>(
-                                future: a,
-                                builder: (BuildContext context,
-                                    AsyncSnapshot<String> snapshot) {
-                                  List<Widget> children;
-                                  if (snapshot.hasData) {
-                                    children = <Widget>[
-                                      const Icon(
-                                        Icons.check_circle_outline,
-                                        color: Colors.green,
-                                        size: 60,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 16),
-                                        child: Text('Result: ${snapshot.data}'),
-                                      ),
-                                    ];
-                                  } else if (snapshot.hasError) {
-                                    children = <Widget>[
-                                      const Icon(
-                                        Icons.error_outline,
-                                        color: Colors.red,
-                                        size: 60,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 16),
-                                        child: Text('Error: ${snapshot.error}'),
-                                      ),
-                                    ];
-                                  } else {
-                                    children = const <Widget>[
-                                      SizedBox(
-                                        width: 60,
-                                        height: 60,
-                                        child: CircularProgressIndicator(),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(top: 16),
-                                        child: Text('Awaiting result...'),
-                                      ),
-                                    ];
-                                  }
-                                  return Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: children,
-                                    ),
-                                  );
-                                })
-                          ]),*/
-
-                          /* Container(
-                            child: FutureBuilder<String>(
-                              future:
-                                  a, // a previously-obtained Future<String> or null
-                              builder: (BuildContext context,
-                                  AsyncSnapshot<String> snapshot) {
-                                List<Widget> children;
-                                if (snapshot.hasData) {
-                                  children = <Widget>[
-                                    const Icon(
-                                      Icons.check_circle_outline,
-                                      color: Colors.green,
-                                      size: 60,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 16),
-                                      child: Text('Result: ${snapshot.data}'),
-                                    ),
-                                  ];
-                                } else if (snapshot.hasError) {
-                                  children = <Widget>[
-                                    const Icon(
-                                      Icons.error_outline,
-                                      color: Colors.red,
-                                      size: 60,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 16),
-                                      child: Text('Error: ${snapshot.error}'),
-                                    ),
-                                  ];
-                                } else {
-                                  children = const <Widget>[
-                                    SizedBox(
-                                      width: 60,
-                                      height: 60,
-                                      child: CircularProgressIndicator(),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(top: 16),
-                                      child: Text('Awaiting result...'),
-                                    ),
-                                  ];
-                                }
-                                return Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: children,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),*/
                           const SizedBox(
                             height: 36,
                           ),
@@ -256,7 +165,13 @@ class HomeState extends State<Home> {
                             const SizedBox(
                               width: 5,
                             ),
-                            fontePadrao("53°C", 28, Colors.black, 1, 1)
+                            Container(
+                              alignment: Alignment.center,
+                              height: 38,
+                              width: 38,
+                              child: s2,
+                            ),
+                            fontePadrao("°C", 28, Colors.black, 1, 1)
                           ],
                         ),
                         const SizedBox(
@@ -282,7 +197,13 @@ class HomeState extends State<Home> {
                             const SizedBox(
                               width: 5,
                             ),
-                            fontePadrao("03:00h", 28, Colors.black, 1, 1)
+                            Container(
+                              alignment: Alignment.center,
+                              height: 38,
+                              width: 38,
+                              child: s3,
+                            ),
+                            fontePadrao("h", 28, Colors.black, 1, 1)
                           ],
                         ),
                         const SizedBox(
@@ -319,7 +240,13 @@ class HomeState extends State<Home> {
                             const SizedBox(
                               width: 5,
                             ),
-                            fontePadrao("40%", 28, Colors.black, 1, 1)
+                            Container(
+                              alignment: Alignment.center,
+                              height: 38,
+                              width: 38,
+                              child: s4,
+                            ),
+                            fontePadrao("%", 28, Colors.black, 1, 1)
                           ],
                         ),
                         const SizedBox(
@@ -345,7 +272,13 @@ class HomeState extends State<Home> {
                           const SizedBox(
                             width: 5,
                           ),
-                          fontePadrao("40°C", 28, Colors.black, 1, 1)
+                          Container(
+                            alignment: Alignment.center,
+                            height: 38,
+                            width: 38,
+                            child: s5,
+                          ),
+                          fontePadrao("°C", 28, Colors.black, 1, 1)
                         ],
                       ),
                       const SizedBox(
