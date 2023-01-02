@@ -6,7 +6,7 @@ class MenuHamburger extends StatelessWidget {
   final String id = "55425";
   final String nome = "Tony";
   final String sobrenome = "Stark";
-  final String foto = "img/stark.jpeg";
+  final String foto = "assets/img/stark.jpeg";
 
   const MenuHamburger({super.key});
 
@@ -65,7 +65,7 @@ class MenuHamburger extends StatelessWidget {
                     ClipRRect(
                         borderRadius: BorderRadius.circular(60),
                         child: Image.asset(
-                          "img/stark.jpeg",
+                          foto,
                           height: 110,
                           width: 110,
                         ))

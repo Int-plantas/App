@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 //String sUmidadeSolo;
 
@@ -40,68 +38,285 @@ import 'package:google_fonts/google_fonts.dart';
   return document['nome'];
 }*/
 
-class ConectionService extends StatefulWidget {
-  String idDataBase;
-  double sizeFont;
-  Color colorVar;
-  ConectionService(
-      {required this.idDataBase,
-      required this.sizeFont,
-      required this.colorVar}) {}
-  @override
-  _ConectionServiceState createState() => _ConectionServiceState(
-      idDataBase: idDataBase, sizeFont: sizeFont, colorVar: colorVar);
+/*class Dados {
+  String n;
+  String x;
+  Dados({required this.n, required this.x});
+  String getn() {
+    return n;
+  }
+
+  void setn(String a) {
+    n = a;
+  }
+
+  String getx() {
+    return x;
+  }
+
+  void setx(String a) {
+    x = a;
+  }
+}*/
+
+class Dados {
+  String nome;
+  String sobrenome;
+  String sUmidadeSolo;
+  String sUmidadeAr;
+  String sTempSolo;
+  String sTempAmbiente;
+  String sLuminosidade;
+  String estadoSolenoide;
+  String configUmidMin;
+  String configUmidMax;
+  String configTempoON;
+  String configTempoOFF;
+
+  Dados(
+      {required this.nome,
+      required this.sobrenome,
+      required this.sUmidadeSolo,
+      required this.sUmidadeAr,
+      required this.sTempSolo,
+      required this.sTempAmbiente,
+      required this.configTempoOFF,
+      required this.configTempoON,
+      required this.configUmidMax,
+      required this.configUmidMin,
+      required this.estadoSolenoide,
+      required this.sLuminosidade});
+
+  void setConfigTempoON(String x) {
+    configTempoON = x;
+  }
+
+  void setConfigTempoOFF(String x) {
+    configTempoOFF = x;
+  }
+
+  void setConfigUmidMax(String x) {
+    configUmidMax = x;
+  }
+
+  void setConfigUmidMin(String x) {
+    configUmidMin = x;
+  }
+
+  void setsUmidadeSolo(String x) {
+    sUmidadeSolo = x;
+  }
+
+  void setsUmidadeAr(String x) {
+    sUmidadeAr = x;
+  }
+
+  void setsTemperaturaSolo(String x) {
+    sTempSolo = x;
+  }
+
+  void setsTemperaturaAr(String x) {
+    sTempAmbiente = x;
+  }
+
+  void setsLuminosidade(String x) {
+    sLuminosidade = x;
+  }
+
+  String getConfigTempoON() {
+    return configTempoON;
+  }
+
+  String getConfigTempoOFF() {
+    return configTempoOFF;
+  }
+
+  String getConfigUmidMax() {
+    return configUmidMax;
+  }
+
+  String getConfigUmidMin() {
+    return configUmidMin;
+  }
+
+  String getsUmidadeSolo() {
+    return sUmidadeSolo;
+  }
+
+  String getsUmidadeAr() {
+    return sUmidadeAr;
+  }
+
+  String getsTemperaturaSolo() {
+    return sTempSolo;
+  }
+
+  String getsTemperaturaAr() {
+    return sTempAmbiente;
+  }
+
+  String getsLuminosidade() {
+    return sLuminosidade;
+  }
 }
 
-class _ConectionServiceState extends State<ConectionService> {
-  String idDataBase;
-  double sizeFont;
-  Color colorVar;
-  _ConectionServiceState(
-      {required this.idDataBase,
-      required this.sizeFont,
-      required this.colorVar});
-  final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('1').snapshots();
+final banco = Dados(
+    nome: '..',
+    sobrenome: '..',
+    sUmidadeSolo: '..',
+    sUmidadeAr: '..',
+    sTempSolo: '..',
+    sTempAmbiente: '..',
+    configTempoOFF: '..',
+    configTempoON: '..',
+    configUmidMax: '..',
+    configUmidMin: '..',
+    estadoSolenoide: '..',
+    sLuminosidade: '..');
 
-  Text fontePadrao(String texto, double tamanho, Color cor,
-      double espacamentoLetras, double espacamentoPalavras) {
-    return Text(
-      texto,
-      style: GoogleFonts.nunito(
-          textStyle: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: tamanho,
-              color: cor,
-              letterSpacing: espacamentoLetras,
-              wordSpacing: espacamentoPalavras)),
-    );
+/*class ConectionService extends StatefulWidget {
+  @override
+  ConectionServiceState createState() => ConectionServiceState();
+}*/
+
+/*class ConectionService extends StatefulWidget {
+
+  Future<String> ret() async {
+  /* DatabaseReference starCountRef =
+      FirebaseDatabase.instance.ref('3/teste/nome');
+  String f = 'j';
+  var result;
+
+  String updateStarCount(String x) {
+    f = x;
+    return f;
   }
+
+  starCountRef.onValue.listen((DatabaseEvent event) {
+    // Imprime um doc especifico
+    final data = event.snapshot.value;
+    var a = data;
+    a.toString();
+    result = data.toString();
+    updateStarCount('te');
+    print(data);
+    print(f);
+  });
+//  print(f);
+  return f;*/
+
+  await Firebase.initializeApp();
+  var collection = FirebaseFirestore.instance.collection('1');
+
+  // Chama nossa colecao uma unica vez
+  var result = await collection.get();
+
+  // Observa se ha alteracao na colecao, se houver executa o metodo
+  collection.snapshots().listen((r) {
+    result = r;
+    // Imprime um doc especifico
+    print(r.docs[0]['nome']);
+    d.setn(r.docs[0]['nome']);
+  
+  
+  });
+
+  return 's';
+}
+  
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+    
+  } }*/
+Future<void> ret() async {
+  var collection = FirebaseFirestore.instance.collection('1');
+
+  // Chama nossa colecao uma unica vez
+  var result = await collection.get();
+
+  // Observa se ha alteracao na colecao, se houver executa o metodo
+  collection.snapshots().listen((r) {
+    result = r;
+    banco.setConfigTempoON(r.docs[0]['configTempoON']);
+    banco.setConfigTempoOFF(r.docs[0]['configTempoOFF']);
+    banco.setConfigUmidMax(r.docs[0]['configUmidMax']);
+    banco.setConfigUmidMin(r.docs[0]['configUmidMin']);
+    banco.setsUmidadeSolo(r.docs[0]['sUmidadeSolo']);
+    banco.setsUmidadeAr(r.docs[0]['sUmidadeAr']);
+    banco.setsTemperaturaAr(r.docs[0]['sTemperaturaAr']);
+    banco.setsTemperaturaSolo(r.docs[0]['sTemperaturaSolo']);
+    banco.setsLuminosidade(r.docs[0]['sLuminosidade']);
+  });
+}
+
+/*Future<void> push() async {
+  var collection = FirebaseFirestore.instance.collection('1');
+  collection
+      .doc('User')
+      .update({'configUmidMin': '1'})
+      .then((value) => print('deu certo'))
+      .catchError((error) => print('erro$error'));
+}*/
+
+/*Future<String> ret() async {
+  /* DatabaseReference starCountRef =
+      FirebaseDatabase.instance.ref('3/teste/nome');
+  String f = 'j';
+  var result;
+
+  String updateStarCount(String x) {
+    f = x;
+    return f;
+  }
+
+  starCountRef.onValue.listen((DatabaseEvent event) {
+    // Imprime um doc especifico
+    final data = event.snapshot.value;
+    var a = data;
+    a.toString();
+    result = data.toString();
+    updateStarCount('te');
+    print(data);
+    print(f);
+  });
+//  print(f);
+  return f;*/
+
+  await Firebase.initializeApp();
+  var collection = FirebaseFirestore.instance.collection('1');
+
+  // Chama nossa colecao uma unica vez
+  var result = await collection.get();
+  var x = 'd';
+
+  // Observa se ha alteracao na colecao, se houver executa o metodo
+  collection.snapshots().listen((r) {
+    result = r;
+    // Imprime um doc especifico
+    print(r.docs[0]['nome']);
+    d.setn(r.docs[0]['nome']);
+    x = r.docs[0]['nome'];
+  });
+
+  return x;
+}*/
+
+/*class ConectionServiceState extends State<ConectionService> {
+  DatabaseReference starCountRef =
+      FirebaseDatabase.instance.ref('3/teste/nome');
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-        stream: _usersStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Text('X');
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("...");
-          }
-
-          return ListView(
-              children: snapshot.data!.docs.map(
-            (DocumentSnapshot document) {
-              Map<String, dynamic> data =
-                  document.data()! as Map<String, dynamic>;
-              return fontePadrao(data[idDataBase], sizeFont, colorVar, 1, 1);
-            },
-          ).toList());
-        });
+    starCountRef.onValue.listen((DatabaseEvent event) {
+      final data = event.snapshot.value;
+      print(data);
+    });
+    // TODO: implement build
+    return Text(" ");
   }
-}
+}*/
 
 /*abstract class ListItem {
   /// The title line to show in a list item.
@@ -109,32 +324,7 @@ class _ConectionServiceState extends State<ConectionService> {
 }*/
 
 
-/*class Dados {
-  dynamic id;
-  String user;
-  int sUmidadeSolo;
-  int sUmidadeAr;
-  int sTempSolo;
-  int sTempAmbiente;
-  bool estadoSolenoide;
-  int umidadeDesejadaMin;
-  int umidadeDesejadaMax;
-  int tempoAcionamento;
-  int tempoDesligamento;
 
-  Dados(
-      {required this.id,
-      required this.user,
-      required this.sUmidadeSolo,
-      required this.sUmidadeAr,
-      required this.sTempSolo,
-      required this.sTempAmbiente,
-      required this.tempoAcionamento,
-      required this.tempoDesligamento,
-      required this.umidadeDesejadaMin,
-      required this.umidadeDesejadaMax,
-      required this.estadoSolenoide});
-}*/
 
  /*await Firebase.initializeApp();
   var collection = FirebaseFirestore.instance.collection('User');

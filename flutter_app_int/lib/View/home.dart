@@ -14,20 +14,11 @@ class Home extends StatefulWidget {
 }
 
 class HomeState extends State<Home> {
-  final s1 = ConectionService(
-    idDataBase: 'sUmidadeSolo',
-    sizeFont: 28,
-    colorVar: Colors.black,
-  );
-  final s2 = ConectionService(
-      idDataBase: 'sTemperaturaSolo', sizeFont: 28, colorVar: Colors.black);
-  final s3 = ConectionService(
-      idDataBase: 'sLuminosidade', sizeFont: 28, colorVar: Colors.black);
-  final s4 = ConectionService(
-      idDataBase: 'sUmidadeAr', sizeFont: 28, colorVar: Colors.black);
-  final s5 = ConectionService(
-      idDataBase: 'sTemperaturaAr', sizeFont: 28, colorVar: Colors.black);
-
+  String sUmidadeSolo = '...';
+  String sUmidadeAr = '...';
+  String sTemperaturaAr = '...';
+  String sTemperaturaSolo = '...';
+  String sLuminosidade = '...';
   Text fontePadrao(String texto, double tamanho, Color cor,
       double espacamentoLetras, double espacamentoPalavras) {
     return Text(
@@ -55,6 +46,19 @@ class HomeState extends State<Home> {
         appBar.preferredSize.height + MediaQuery.of(context).padding.top;
     int sizeBottom = 30;
     final scaffoldBodyHeight = height - appBarHeight - sizeBottom;
+
+    Future<void> config() async {
+      final load = await ret();
+      setState(() {
+        sUmidadeSolo = banco.getsUmidadeSolo();
+        sUmidadeAr = banco.getsUmidadeAr();
+        sTemperaturaAr = banco.getsTemperaturaAr();
+        sTemperaturaSolo = banco.getsTemperaturaSolo();
+        sLuminosidade = banco.getsLuminosidade();
+      });
+    }
+
+    config();
 
     Container horizontalDivider() {
       return Container(
@@ -92,7 +96,7 @@ class HomeState extends State<Home> {
     }
 
     SizedBox spaceButton() {
-      return const SizedBox(height: 18.8);
+      return SizedBox(height: scaffoldBodyHeight / 34.3);
     }
 
     Size sizeButton() {
@@ -102,11 +106,13 @@ class HomeState extends State<Home> {
     return Scaffold(
         appBar: appBar,
         drawer: MenuHamburger(),
-        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        body: Column(//mainAxisAlignment: MainAxisAlignment.center,
+            children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Builder(builder: (BuildContext context) {
                     return TextButton(
@@ -131,13 +137,7 @@ class HomeState extends State<Home> {
                               const SizedBox(
                                 width: 5,
                               ),
-                              Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.zero,
-                                height: 38,
-                                width: 38,
-                                child: s1,
-                              ),
+                              fontePadrao(sUmidadeSolo, 28, Colors.black, 1, 1),
                               fontePadrao("%", 28, Colors.black, 1, 1)
                             ],
                           ),
@@ -165,12 +165,8 @@ class HomeState extends State<Home> {
                             const SizedBox(
                               width: 5,
                             ),
-                            Container(
-                              alignment: Alignment.center,
-                              height: 38,
-                              width: 38,
-                              child: s2,
-                            ),
+                            fontePadrao(
+                                sTemperaturaSolo, 28, Colors.black, 1, 1),
                             fontePadrao("°C", 28, Colors.black, 1, 1)
                           ],
                         ),
@@ -197,12 +193,7 @@ class HomeState extends State<Home> {
                             const SizedBox(
                               width: 5,
                             ),
-                            Container(
-                              alignment: Alignment.center,
-                              height: 38,
-                              width: 38,
-                              child: s3,
-                            ),
+                            fontePadrao(sLuminosidade, 28, Colors.black, 1, 1),
                             fontePadrao("h", 28, Colors.black, 1, 1)
                           ],
                         ),
@@ -214,7 +205,7 @@ class HomeState extends State<Home> {
                 ],
               ),
               Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   verticalDivider(),
                   verticalDivider(),
@@ -222,6 +213,7 @@ class HomeState extends State<Home> {
                 ],
               ),
               Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TextButton(
                       onPressed: () {},
@@ -240,12 +232,7 @@ class HomeState extends State<Home> {
                             const SizedBox(
                               width: 5,
                             ),
-                            Container(
-                              alignment: Alignment.center,
-                              height: 38,
-                              width: 38,
-                              child: s4,
-                            ),
+                            fontePadrao(sUmidadeAr, 28, Colors.black, 1, 1),
                             fontePadrao("%", 28, Colors.black, 1, 1)
                           ],
                         ),
@@ -272,12 +259,7 @@ class HomeState extends State<Home> {
                           const SizedBox(
                             width: 5,
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            height: 38,
-                            width: 38,
-                            child: s5,
-                          ),
+                          fontePadrao(sTemperaturaAr, 28, Colors.black, 1, 1),
                           fontePadrao("°C", 28, Colors.black, 1, 1)
                         ],
                       ),

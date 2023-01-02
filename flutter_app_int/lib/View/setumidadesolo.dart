@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app_int/View/Recursos/barrasuperiorset.dart';
 import 'package:flutter_app_int/database/firestore/service.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:path/path.dart';
 
 class SetUmidadeSolo extends StatefulWidget {
   const SetUmidadeSolo({super.key});
@@ -17,8 +16,11 @@ int varAcionamento = 0;
 int varDesligamento = 0;
 
 class SetUmidadeSoloState extends State<SetUmidadeSolo> {
+  String configTempoON = '...';
+  String configTempoOFF = '...';
+  String configUmidMax = '...';
+  String configUmidMin = '...';
   int selectIndex = 0;
-
   Text fontePadrao(String texto, double tamanho, Color cor,
       double espacamentoLetras, double espacamentoPalavras) {
     return Text(
@@ -82,26 +84,17 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
     double sizeSplash = width / 10;
     double sizeContainer = width / 5;
 
-    final config1 = ConectionService(
-        idDataBase: 'configUmidMin',
-        sizeFont: sizeVar,
-        colorVar: Colors.blueGrey);
-    final config2 = ConectionService(
-        idDataBase: 'configUmidMax',
-        sizeFont: sizeVar,
-        colorVar: Colors.blueGrey);
-    final config3 = ConectionService(
-        idDataBase: 'configTempoON',
-        sizeFont: sizeVar,
-        colorVar: Colors.blueGrey);
-    final config4 = ConectionService(
-        idDataBase: 'configTempoOFF',
-        sizeFont: sizeVar,
-        colorVar: Colors.blueGrey);
-
-    Future<Widget> config() async {
-      return const Text("");
+    Future<void> config() async {
+      final load = await ret();
+      setState(() {
+        configTempoON = banco.getConfigTempoON();
+        configTempoOFF = banco.getConfigTempoOFF();
+        configUmidMax = banco.getConfigUmidMax();
+        configUmidMin = banco.getConfigUmidMin();
+      });
     }
+
+    config();
 
     Icon bolinhas() {
       return Icon(
@@ -112,6 +105,7 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
     }
 
     void pressIconMin() {
+      //pushDB();
       if (varMin > 0) {
         setState(() {
           varMin = varMin - 5;
@@ -181,13 +175,7 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
               SizedBox(
                 width: width / 30,
               ),
-              Container(
-                alignment: Alignment.centerRight,
-                height: sizeContainer,
-                width: sizeContainer,
-                padding: EdgeInsets.zero,
-                child: config1,
-              ),
+              fontePadrao(configUmidMin, sizeVar, Colors.blueGrey, 1, 1),
               SizedBox(
                 width: width / 40,
               ),
@@ -217,15 +205,9 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
                 ],
               ),
               SizedBox(
-                width: width / 30,
+                width: width / 40,
               ),
-              Container(
-                alignment: Alignment.centerLeft,
-                height: sizeContainer,
-                width: sizeContainer,
-                padding: EdgeInsets.zero,
-                child: config2,
-              ),
+              fontePadrao(configUmidMax, sizeVar, Colors.blueGrey, 1, 1),
               SizedBox(
                 width: width / 30,
               ),
@@ -268,19 +250,23 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
               SizedBox(
                 width: width / 5,
               ),
-              Container(
-                alignment: Alignment.center,
-                height: sizeContainer,
-                width: sizeContainer,
-                padding: EdgeInsets.zero,
-                child: FutureBuilder<Widget>(
-                  future: config(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<Widget> snapshot) {
-                    return config3;
-                  },
-                ),
-              ),
+              fontePadrao(
+                  banco.getConfigTempoON(), sizeVar, Colors.blueGrey, 1, 1)
+
+              /*FutureBuilder(
+                        future: config(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<void> snapshot) {
+                          if (snapshot.hasData) {
+                            config();
+                          } else if (snapshot.hasError) {
+                            return Text("Erro DB");
+                          }
+                          return Center(
+                            child: Text(configTempoON),
+                          );
+                        }),*/
+              ,
               SizedBox(
                 width: width / 5,
               ),
@@ -318,13 +304,7 @@ class SetUmidadeSoloState extends State<SetUmidadeSolo> {
               SizedBox(
                 width: width / 5,
               ),
-              Container(
-                alignment: Alignment.centerRight,
-                height: sizeContainer,
-                width: sizeContainer,
-                padding: EdgeInsets.zero,
-                child: config4,
-              ),
+              fontePadrao(configTempoOFF, sizeVar, Colors.blueGrey, 1, 1),
               SizedBox(
                 width: width / 5,
               ),
